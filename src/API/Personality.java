@@ -34,28 +34,16 @@ public class Personality {
         CmdLineParser parser = new CmdLineParser(this);
 
 
-        try {
-            // parse the arguments.
-            parser.parseArgument(args);
+      
 
-            if( arguments.size() != 3 )
-                throw new CmdLineException(parser, "Error: 3 arguments expected\n");
-
-        } catch( CmdLineException e ) {
-            System.err.println(e.getMessage());
-            System.err.println("java -jar personality.jar [options...] key secret file");
-            parser.printUsage(System.err);
-            System.err.println();
-            System.err.println("  Example: java Personality <your api key> <your api secret key> <file to process>");
-
-            return;
-        }
-
-        content = new Content(arguments.get(2));
+        content = new Content("fileName.txt");
+        String api_key="";
+        String secret_key=" ";
 
         if (content.content != null) {
             try {
-                receptiviti = new Receptiviti(server, arguments.get(0), arguments.get(1));
+               
+                receptiviti = new Receptiviti(server,api_key,secret_key);
                 person = new Person(content.name, content.name, 0);
                 person = receptiviti.GetPersonID(person);
                 if (person.id == null) {
